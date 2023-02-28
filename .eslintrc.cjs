@@ -6,12 +6,12 @@ module.exports = {
   },
   extends: [
     // 'airbnb',
-    'eslint:recommended',
+    // 'eslint:recommended',
     // 'plugin:react/recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
+    // 'plugin:@typescript-eslint/eslint-recommended',
+    // 'plugin:@typescript-eslint/recommended',
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:@typescript-eslint/strict",
+    // "plugin:@typescript-eslint/strict",
   ],
   root:true,
   overrides: [
@@ -23,9 +23,9 @@ module.exports = {
   },
   parser: '@typescript-eslint/parser',
   plugins: [
-    'react',
-    '@typescript-eslint',
-    'tsconfig',
+    // 'react',
+    // '@typescript-eslint',
+    // 'tsconfig',
   ],
   rules: {
     // "@typescript-eslint/explicit-function-return-type": "error",

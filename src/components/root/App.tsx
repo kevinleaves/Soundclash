@@ -3,11 +3,13 @@ import axios from 'axios';
 import { SpotifyApiContext, Playlist, User } from 'react-spotify-api';
 import '../../styles/App.css';
 import { accessToken, userProfile, getUsersTopItems } from '../../utils/spotifyHelpers.js';
+import Track from '../interfaces'
+import TrackList from '../TrackList';
 
 function App(): JSX.Element {
   const [token, setToken] = useState<string>(accessToken());
   const [currentUserProfile, setCurrentUserProfile] = useState<object>({});
-  const [topItems, setTopItems] = useState<Array<any>>([])
+  const [topItems, setTopItems] = useState<Array<Track>>([])
 
   useEffect(() => {
     // const access = accessToken()
@@ -35,7 +37,6 @@ function App(): JSX.Element {
   }, []);
 
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
     <div className="App">
       {token ? (
         <SpotifyApiContext.Provider value={token}>
@@ -43,7 +44,14 @@ function App(): JSX.Element {
             You are authorized with token:
             {token}
           </p>
-          <div />
+          <div>
+            TRACK LIST GOES HERE
+            {topItems
+              ? <TrackList tracks={topItems.items}/>
+              : null
+            }
+
+          </div>
         </SpotifyApiContext.Provider>
       ) : (
         <div className="container">
