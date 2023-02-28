@@ -34,7 +34,7 @@ const stateKey = 'spotify_auth_state'
 app.get('/api/login', (req, res) => {
   const state = generateRandomString(16)
   res.cookie(stateKey, state)
-  const scope = 'playlist-read-private playlist-read-collaborative'
+  const scope = 'user-top-read user-read-recently-played user-read-playback-position playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public'
   const url = 'https://accounts.spotify.com/authorize?' +
   querystring.stringify({
     response_type: 'code',

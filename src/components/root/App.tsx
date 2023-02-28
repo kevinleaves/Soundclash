@@ -1,69 +1,65 @@
-// import * as dotenv from 'dotenv'
-// dotenv.config()
-import React from 'react'
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { React, useState, useEffect } from 'react';
+import axios from 'axios';
 import { SpotifyApiContext, Playlist, User } from 'react-spotify-api';
-import '../../styles/App.css'
-import { accessToken, userProfile } from '../../utils/spotifyHelpers.js'
+import '../../styles/App.css';
+import { accessToken, userProfile, getUsersTopItems } from '../../utils/spotifyHelpers.js';
 
-const App = (): JSX.Element => {
-  const [code, setCode] = useState(null)
-  const [state, setState] = useState<boolean>(false)
-  const [token, setToken] = useState<string>('')
-  const [currentUserProfile, setCurrentUserProfile] = useState<object>({})
+function App(): JSX.Element {
+  const [token, setToken] = useState<string>(accessToken());
+  const [currentUserProfile, setCurrentUserProfile] = useState<object>({});
+  const [topItems, setTopItems] = useState<Array<any>>([])
 
   useEffect(() => {
-    const token = accessToken()
-    setToken(token)
-    const fetchUserProfile = async () => {
-      const profile = await userProfile(token)
-      setCurrentUserProfile(profile)
+    // const access = accessToken()
+    // setToken(access)
+    const fetchUserProfile = async (): Promise<void> => {
+      try {
+        const profile = await userProfile(token);
+        setCurrentUserProfile(profile);
+      } catch(err) {
+        console.log(err.message)
+      }
     }
-    fetchUserProfile()
-  }, [])
+    const fetchTopItems = async (): Promise<void> => {
+      try {
+        console.log(getUsersTopItems)
+        const items = await getUsersTopItems('tracks', 'medium_term', 50, token)
+        setTopItems(items)
+      } catch(err) {
+        console.log(err.message)
+      }
+    }
 
-  const getCode = () => {
-    let code = null;
-    let state = null;
-    const queryString = window.location.search;
-    if (queryString.length > 0) {
-      const urlParams = new URLSearchParams(queryString);
-      code = urlParams.get('code');
-      state = urlParams.get('state');
-    }
-    setCode(code)
-    setState(state)
-    return code;
-  }
+    fetchUserProfile();
+    fetchTopItems()
+  }, []);
 
   return (
+    // eslint-disable-next-line react/jsx-filename-extension
     <div className="App">
       {token ? (
         <SpotifyApiContext.Provider value={token}>
-          <p>You are authorized with token: {token}</p>
-          <div>
-
-          </div>
+          <p>
+            You are authorized with token:
+            {token}
+          </p>
+          <div />
         </SpotifyApiContext.Provider>
       ) : (
         <div className="container">
           <div id="login">
             <h1>This is an example of the Authorization Code flow</h1>
-            <a href='/api/login' className="btn btn-primary">Log in with Spotify</a>
+            <a href="/api/login" className="btn btn-primary">Log in with Spotify</a>
           </div>
           <div id="loggedin">
-            <div id="user-profile">
-            </div>
-            <div id="oauth">
-            </div>
+            <div id="user-profile" />
+            <div id="oauth" />
             <button className="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button>
+          </div>
         </div>
-      </div>
-      )
-    }
+      )}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
