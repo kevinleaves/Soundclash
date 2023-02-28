@@ -45,7 +45,6 @@ app.get('/api/login', (req, res) => {
   })
 
   console.log(url, 'url')
-  // window.location.href = '/url'
   res.redirect(url)
 })
 
@@ -78,7 +77,15 @@ app.get('/api/callback/', (req, res) => {
     axios(options)
       .then((response) => {
         if (response.status === 200) {
-          res.send(`<pre>${JSON.stringify(response.data, null, 2)}</pre>`)
+          const { access_token, expires_in, refresh_token } = response.data
+          const url = `http://127.0.0.1:5173/?` +
+          querystring.stringify({
+            accessToken: access_token,
+            refreshToken: refresh_token,
+            expiresIn: expires_in
+          })
+          res.redirect(url)
+          // res.send(`<pre>${JSON.stringify(response.data, null, 2)}</pre>`)
         }
         // if (response.status === 200) {
         // const accessToken = response.data.access_token

@@ -1,14 +1,27 @@
 // import * as dotenv from 'dotenv'
 // dotenv.config()
-import { useState } from 'react'
+import React from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { SpotifyApiContext } from 'react-spotify-api';
+import { SpotifyApiContext, Playlist, User } from 'react-spotify-api';
 import '../../styles/App.css'
+import { accessToken, userProfile } from '../../utils/spotifyHelpers.js'
 
-function App() {
+const App = (): JSX.Element => {
   const [code, setCode] = useState(null)
-  const [state, setState] = useState(null)
-  const [token, setToken] = useState(null)
+  const [state, setState] = useState<boolean>(false)
+  const [token, setToken] = useState<string>('')
+  const [currentUserProfile, setCurrentUserProfile] = useState<object>({})
+
+  useEffect(() => {
+    const token = accessToken()
+    setToken(token)
+    const fetchUserProfile = async () => {
+      const profile = await userProfile(token)
+      setCurrentUserProfile(profile)
+    }
+    fetchUserProfile()
+  }, [])
 
   const getCode = () => {
     let code = null;
@@ -29,6 +42,9 @@ function App() {
       {token ? (
         <SpotifyApiContext.Provider value={token}>
           <p>You are authorized with token: {token}</p>
+          <div>
+
+          </div>
         </SpotifyApiContext.Provider>
       ) : (
         <div className="container">
