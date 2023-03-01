@@ -36,6 +36,7 @@ function App(): JSX.Element {
     fetchTopItems()
   }, []);
 
+  console.log(topItems, 'topItems')
   return (
     <div className="App">
       {token ? (
@@ -45,8 +46,7 @@ function App(): JSX.Element {
             {token}
           </p>
           <div>
-            TRACK LIST GOES HERE
-            {topItems
+            {topItems.items
               ? <TrackList tracks={topItems.items}/>
               : null
             }
