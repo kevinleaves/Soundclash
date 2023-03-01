@@ -9,16 +9,17 @@ export default function Main ({ tracks }) {
   const [winners, setWinners] = useState([]);
   const [currentPlayers, setCurrentPlayers] = useState([])
 
-  // const findSongID = (id) => {
-  //   const filtered = contestants
-  //     .filter((entry) => entry[1].id === id)
-  //   console.log(filtered, 'filtered')
-  //   // returns true if song found
-  //   const found = filtered.length !== 0
-  //   if (found) {
-  //   }
-  //   return filtered.length !== 0
-  // }
+  const toggleWon = (id) => {
+    const filtered = contestants
+      .filter((track) => track.id === id)
+    console.log(filtered, 'filtered')
+    // returns true if song found
+    const found = filtered.length !== 0
+    if (found) {
+      filtered[0].won = true
+    }
+    console.log(filtered[0])
+  }
 
   // const replacePlayers = () => {
   //   // loop through currentPlayers array. for each player: delete player from contestants
@@ -31,7 +32,8 @@ export default function Main ({ tracks }) {
 
   const handleClick = (event, songID) => {
     console.log(songID, 'songid')
-    // findSongID(songID)
+    toggleWon(songID)
+    // console.log()
   }
 
   useEffect(() => {
