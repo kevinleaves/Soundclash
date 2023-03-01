@@ -13,11 +13,10 @@ export default function Card ({ track }) {
       CARD
       <img
         src={track.album.images[0].url}
-        // className=''
         />
-      <p>SONG TITLE: {track.name}</p>
-      <p>ARTIST NAME: {generateArtistString(track)}</p>
-      <p>ALBUM TITLE: {track.album.name}</p>
+      <p className='font-semibold text-xl'>{track.name}</p>
+      <p className='font-extralight text-xl'>{generateArtistString(track)}</p>
+      <p className='font-extralight text-xl'>{track.album.name}</p>
       <a href={track.preview_url}>SNIPPET </a>
     </div>
   )

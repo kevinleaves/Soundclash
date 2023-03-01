@@ -8,7 +8,7 @@ export default function Main ({ tracks }) {
   return (
     <>
       Main
-      <div className='flex gap-8'>
+      <div className='flex gap-8 mb-80'>
         <Card track={tracks[0]}/>
         <Card track={tracks[1]}/>
       </div>
