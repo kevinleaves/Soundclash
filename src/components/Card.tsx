@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Card ({ track }) {
+export default function Card ({ track, handleClick }) {
   console.log(track)
   const generateArtistString = (track) => {
     const artist = track.artists.reduce(
@@ -29,7 +29,9 @@ export default function Card ({ track }) {
       <p className='font-extralight text-xl'>{condensedTrack.artist}</p>
       <p className='font-extralight text-xl'>{condensedTrack.albumName}</p>
       <a href={condensedTrack.previewURL}>SNIPPET</a>
-      <button onClick={() => console.log(condensedTrack.id)}>
+      <button
+        onClick={() => handleClick(event, condensedTrack.id)}
+      >
         CHOOSE
       </button>
     </div>
