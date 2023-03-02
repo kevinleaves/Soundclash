@@ -6,16 +6,16 @@ type TrackListProps = {
 }
 
 export default function TrackList({ tracks }: TrackListProps) {
-  console.log(tracks, 'tracks')
+  // console.log(tracks, 'tracks')
   return (
     <div className=''>
       <h1>tracklist</h1>
-      <div className='flex overflow-x-scroll'>
+      <div className='twflex twoverflow-x-scroll'>
         {tracks.map((track) => {
           return (
-              <li className='flex-none'>
-                <div className='flex flex-col items-start'>
-                  <img className='pr-2' src={track.album.images[2].url}/>
+              <li className='twflex-none'>
+                <div className='twflex twflex-col twitems-start'>
+                  <img className='twpr-2' src={track.album.images[2].url}/>
                   {/* <div className='font-normal'>{track.name}
                   </div>
                   <div className='font-thin'>

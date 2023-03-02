@@ -6,66 +6,106 @@ export default function Main ({ tracks }) {
   // FUTURE TODO: explore alternative ways to store this data (SET, MAP, ARRAY, etc)
 
   const [contestants, setContestants] = useState(tracks.slice(0, 16))
-  const [winners, setWinners] = useState([]);
+  const [winner, setWinner] = useState({});
   const [currentPlayers, setCurrentPlayers] = useState([])
+  const [status, setStatus] = useState(false)
 
   const toggleWon = (id) => {
     const filtered = contestants
       .filter((track) => track.id === id)
-    console.log(filtered, 'filtered')
     // returns true if song found
     const found = filtered.length !== 0
     if (found) {
       filtered[0].won = true
     }
-    console.log(filtered[0])
+
+    const loser = currentPlayers.find((player) => player.id !== id)
+    const loserID = currentPlayers.find((player) => player.id !== id).id;
+    console.log(loser.name, 'loser')
+    console.log(loserID, 'loserID')
+    eliminatePlayer(loserID)
   }
 
-  // const replacePlayers = () => {
-  //   // loop through currentPlayers array. for each player: delete player from contestants
-  //   let clone = currentPlayers.slice();
+  const eliminatePlayer = (id) => {
+    // remove the player from contestants
+    const remainingPlayers = contestants.filter((player) => player.id !== id);
+      setContestants(remainingPlayers)
 
-  //   clone.forEach((track) => {
-  //     track.id
-  //   })
-  // }
+    if (remainingPlayers.length === 1) {
+      setStatus(true)
+      setWinner(remainingPlayers[0])
+      return
+    }
+
+    console.log(remainingPlayers, 'remaining')
+    let randomIndex1 = Math.floor(Math.random() * remainingPlayers.length);
+    let randomIndex2 = Math.floor(Math.random() * remainingPlayers.length);
+
+    // while the 2 indices aren't equal
+    while (randomIndex1 === randomIndex2) {
+      randomIndex2 = Math.floor(Math.random() * remainingPlayers.length);
+    }
+
+    // assign player to index
+    const player1 = remainingPlayers[randomIndex1]
+    const player2 = remainingPlayers[randomIndex2]
+
+    // find the next pair of players if there are more than 2 left
+    if (remainingPlayers.length >= 2) {
+      setCurrentPlayers([player1, player2])
+    }
+  }
 
   const handleClick = (event, songID) => {
     console.log(songID, 'songid')
     toggleWon(songID)
-    // console.log()
+  }
+
+  const shuffle = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor((Math.random() * (i + 1)));
+      [array[i], array[j]] = [array[j], array[i]]
+    }
+    return array;
   }
 
   useEffect(() => {
-    console.log(contestants)
-      // // generate 2 random indices to start 0-15
-    let randomIndex1 = Math.floor(Math.random() * contestants.length);
-    let randomIndex2 = Math.floor(Math.random() * contestants.length);
+    const shuffled = shuffle(tracks.slice(0, 8))
+    // generate 2 random indices to start 0-15
 
-    // while the 2 indices aren't equal
-    while (randomIndex1 === randomIndex2) {
-      randomIndex2 = Math.floor(Math.random() * contestants.length);
-    }
-    // assign player to index
-      const player1 = contestants[randomIndex1]
-      const player2 = contestants[randomIndex2]
-
-      setCurrentPlayers([player1, player2])
-      console.log(currentPlayers, 'players')
+    const players = [shuffled[0], shuffled[1]]
+    setCurrentPlayers(players)
+    setContestants(shuffled)
   }, [])
 
   return (
-    <>
-      <div className='flex gap-8 mb-80'>
-        <Card
-          track={currentPlayers[0]}
-          handleClick={handleClick}
-        />
-        <Card
-          track={currentPlayers[1]}
-          handleClick={handleClick}
-        />
-      </div>
-    </>
-  )
+    <div className=''>
+      {
+        status && (
+          <div className='twflex twmax-w-md twmb-50'>
+            WINNER!
+            <Card
+              className=''
+              track={winner}
+            />
+          </div>
+        )
+      }
+        {currentPlayers.length > 0 && status === false && (
+        // <div className='flex gap-8 mb-80'>
+        <div className='twflex twgap-8'>
+          <>
+            <Card
+              track={currentPlayers[0]}
+              handleClick={handleClick}
+            />
+            <Card
+              track={currentPlayers[1]}
+              handleClick={handleClick}
+            />
+          </>
+        </div>
+        )}
+    </div>
+  );
 }

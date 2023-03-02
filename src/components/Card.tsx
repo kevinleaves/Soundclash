@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function Card ({ track, handleClick }) {
-  console.log(track)
+  // console.log(track)
   const generateArtistString = (track) => {
     const artist = track.artists.reduce(
       (acc, artist, index) => {
@@ -20,14 +20,13 @@ export default function Card ({ track, handleClick }) {
   }
 
   return (
-    <div className='flex flex-col'>
-      CARD
+    <div className='twflex twflex-col'>
       <img
         src={condensedTrack.art}
         />
-      <p className='font-semibold text-xl'>{condensedTrack.name}</p>
-      <p className='font-extralight text-xl'>{condensedTrack.artist}</p>
-      <p className='font-extralight text-xl'>{condensedTrack.albumName}</p>
+      <p className='twfont-semibold twtext-xl'>{condensedTrack.name}</p>
+      <p className='twfont-extralight twtext-xl'>{condensedTrack.artist}</p>
+      <p className='twfont-extralight twtext-xl'>{condensedTrack.albumName}</p>
       <a href={condensedTrack.previewURL}>SNIPPET</a>
       <button
         onClick={() => handleClick(event, condensedTrack.id)}
