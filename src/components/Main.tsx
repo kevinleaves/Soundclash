@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import Card from './Card'
+import SpotifyPlayer from 'react-spotify-web-playback';
 
-export default function Main ({ tracks }) {
+export default function Main ({ tracks, token }) {
   // FUTURE TODO: generate x RANDOM contestants
   // FUTURE TODO: explore alternative ways to store this data (SET, MAP, ARRAY, etc)
 
-  const [contestants, setContestants] = useState(tracks.slice(0, 16))
+  const [contestants, setContestants] = useState([])
   const [winner, setWinner] = useState({});
   const [currentPlayers, setCurrentPlayers] = useState([])
   const [status, setStatus] = useState(false)
@@ -70,7 +71,7 @@ export default function Main ({ tracks }) {
   }
 
   useEffect(() => {
-    const shuffled = shuffle(tracks.slice(0, 8))
+    const shuffled = shuffle(tracks.slice(16, 24))
     // generate 2 random indices to start 0-15
 
     const players = [shuffled[0], shuffled[1]]
@@ -79,10 +80,10 @@ export default function Main ({ tracks }) {
   }, [])
 
   return (
-    <div className=''>
+    <div className='main-container'>
       {
         status && (
-          <div className='twflex twmax-w-md twmb-50'>
+          <div className='twmax-w-lg'>
             WINNER!
             <Card
               className=''
@@ -92,20 +93,32 @@ export default function Main ({ tracks }) {
         )
       }
         {currentPlayers.length > 0 && status === false && (
-        // <div className='flex gap-8 mb-80'>
         <div className='twflex twgap-8'>
           <>
             <Card
               track={currentPlayers[0]}
               handleClick={handleClick}
+              token={token}
             />
             <Card
               track={currentPlayers[1]}
               handleClick={handleClick}
+              token={token}
             />
           </>
         </div>
         )}
+        {currentPlayers.length > 0 &&
+          <SpotifyPlayer
+            token={token}
+            uris={[currentPlayers[0].uri, currentPlayers[1].uri]}
+            initialVolume={0.40}
+            hideAttribution={true}
+            autoPlay={true}
+            showSaveIcon={true}
+            styles={{}}
+          />
+        }
     </div>
   );
 }

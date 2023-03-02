@@ -8,7 +8,7 @@ export default function Card ({ track, handleClick }) {
         return acc + (index === 0 ? '' : ', ') + artist.name;}, '')
     return artist
   }
-
+  console.log(track)
   const condensedTrack = {
     id: track.id,
     name: track.name,
@@ -20,8 +20,9 @@ export default function Card ({ track, handleClick }) {
   }
 
   return (
-    <div className='twflex twflex-col'>
+    <div className='twflex twflex-col twmb-10 twshadow-2xl'>
       <img
+        className='twrounded-3xl'
         src={condensedTrack.art}
         />
       <p className='twfont-semibold twtext-xl'>{condensedTrack.name}</p>
