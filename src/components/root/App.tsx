@@ -5,7 +5,9 @@ import '../../styles/App.css';
 import { accessToken, userProfile, getUsersTopItems } from '../../utils/spotifyHelpers.js';
 import Main from '../Main'
 import Track from '../interfaces'
+import Header from '../Header'
 import TrackList from '../TrackList';;
+import { ThemeProvider } from '../../context/ThemeContext'
 
 function App(): JSX.Element {
   const [token, setToken] = useState<string>(accessToken());
@@ -37,12 +39,13 @@ function App(): JSX.Element {
     fetchTopItems()
   }, []);
 
-
   return (
+    <ThemeProvider>
     <div className="App">
+      <Header />
       <div className='main '>
       {token ? (
-          <div className='app-container twflex twflex-col twgap-72'>
+          <div className='app-container twflex twflex-col twgap-36'>
             {
               topItems.items
               ? <Main
@@ -61,18 +64,17 @@ function App(): JSX.Element {
       ) : (
         <div className="twcontainer">
           <div id="login">
-            <h1 className='twmb-10'>what's your favorite song REALLY?</h1>
             <a href="/api/login" className="btn btn-primary">Log in with Spotify</a>
           </div>
           <div id="loggedin">
             <div id="user-profile" />
             <div id="oauth" />
-            {/* <button className="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button> */}
           </div>
         </div>
       )}
       </div>
     </div>
+    </ThemeProvider>
   );
 }
 

@@ -1,7 +1,10 @@
 import React from 'react'
+import { useTheme } from '../context/ThemeContext'
 
 export default function Card ({ track, handleClick }) {
   // console.log(track)
+  const darkMode = useTheme()
+
   const generateArtistString = (track) => {
     const artist = track.artists.reduce(
       (acc, artist, index) => {
@@ -20,7 +23,7 @@ export default function Card ({ track, handleClick }) {
   }
 
   return (
-    <div className='twflex twflex-col twmb-10 twshadow-2xl'>
+    <div className='twflex twflex-col twmb-10 twshadow-2xl twtext-white twdark:text-white'>
       <img
         className='twrounded-3xl'
         src={condensedTrack.art}
@@ -31,6 +34,7 @@ export default function Card ({ track, handleClick }) {
       <a href={condensedTrack.previewURL}>SNIPPET</a>
       <button
         onClick={() => handleClick(event, condensedTrack.id)}
+      className='twborder-4'
       >
         CHOOSE
       </button>

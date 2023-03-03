@@ -83,12 +83,13 @@ export default function Main ({ tracks, token }) {
     <div className='main-container'>
       {
         status && (
-          <div className='twmax-w-lg'>
-            WINNER!
-            <Card
-              className=''
-              track={winner}
-            />
+          <div className='twflex twflex-col twjustify-center twitems-center'>
+            <p className='twfont-bold twtext-6xl twmb-4'>WINNER! 🎉</p>
+            <div className='twmax-w-lg'>
+              <Card
+                track={winner}
+              />
+            </div>
           </div>
         )
       }
@@ -114,7 +115,7 @@ export default function Main ({ tracks, token }) {
             uris={[currentPlayers[0].uri, currentPlayers[1].uri]}
             initialVolume={0.40}
             hideAttribution={true}
-            autoPlay={true}
+            // autoPlay={true}
             showSaveIcon={true}
             styles={{}}
           />
