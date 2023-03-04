@@ -47,16 +47,16 @@ function App(): JSX.Element {
       {token ? (
           <div className='app-container twflex twflex-col twgap-36'>
             {
-              topItems.items
+              topItems?.items
               ? <Main
-                  tracks={topItems.items}
+                  tracks={topItems?.items}
                   token={token}
                 />
               : null
             }
             <div>
-              {topItems.items
-                ? <TrackList tracks={topItems.items}/>
+              {topItems?.items
+                ? <TrackList tracks={topItems?.items}/>
                 : null
               }
             </div>
