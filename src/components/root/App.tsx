@@ -29,7 +29,7 @@ function App(): JSX.Element {
       try {
         console.log(getUsersTopItems)
         const items = await getUsersTopItems('tracks', 'medium_term', 50, token)
-        setTopItems(items)
+        setTopItems(items.items)
       } catch(err) {
         console.log(err.message)
       }
@@ -47,16 +47,16 @@ function App(): JSX.Element {
       {token ? (
           <div className='app-container twflex twflex-col twgap-36'>
             {
-              topItems?.items
+              topItems?.length > 0
               ? <Main
-                  tracks={topItems?.items}
+                  tracks={topItems}
                   token={token}
                 />
               : null
             }
             <div>
-              {topItems?.items
-                ? <TrackList tracks={topItems?.items}/>
+              {topItems?.length > 0
+                ? <TrackList tracks={topItems}/>
                 : null
               }
             </div>
