@@ -13,10 +13,9 @@ function App(): JSX.Element {
   const [token, setToken] = useState<string>(accessToken());
   const [currentUserProfile, setCurrentUserProfile] = useState<object>({});
   const [topItems, setTopItems] = useState<Array<Track>>([])
+  const [shuffledSongs, setShuffledSongs] = useState([])
 
   useEffect(() => {
-    // const access = accessToken()
-    // setToken(access)
     const fetchUserProfile = async (): Promise<void> => {
       try {
         const profile = await userProfile(token);
@@ -39,6 +38,18 @@ function App(): JSX.Element {
     fetchTopItems()
   }, []);
 
+  useEffect(() => {
+    const shuffle = (array) => {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor((Math.random() * (i + 1)));
+        [array[i], array[j]] = [array[j], array[i]]
+      }
+      return array;
+    }
+    setShuffledSongs(shuffle(topItems.slice()))
+
+  }, [topItems])
+
   return (
     <ThemeProvider>
     <div className="App">
@@ -47,9 +58,9 @@ function App(): JSX.Element {
       {token ? (
           <div className='app-container twflex twflex-col twgap-36'>
             {
-              topItems?.length > 0
+              shuffledSongs?.length > 0
               ? <Main
-                  tracks={topItems}
+                  tracks={shuffledSongs}
                   token={token}
                 />
               : null
