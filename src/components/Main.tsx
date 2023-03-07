@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Card from './Card'
 import SpotifyPlayer from 'react-spotify-web-playback';
+import axios from 'axios';
+import TrackList from './TrackList';
 
 function Tournament({ currentPlayers, handleSongClick }) {
   return (
@@ -79,6 +81,10 @@ export default function Main ({ tracks, token }) {
     toggleWon(songID)
   }
 
+  const fetchPlaylists = () => {
+    axios.get('/playlists')
+  }
+
   useEffect(() => {
     setCurrentPlayers([tracks[0], tracks[1]])
     setContestants(tracks?.slice(0, 8))
@@ -96,16 +102,21 @@ export default function Main ({ tracks, token }) {
         />
         )}
         {currentPlayers?.length > 0 &&
-          <SpotifyPlayer
-            token={token}
-            uris={[currentPlayers[0]?.uri, currentPlayers[1]?.uri]}
-            initialVolume={0.40}
-            hideAttribution={true}
-            // autoPlay={true}
-            showSaveIcon={true}
-            styles={{}}
-          />
+          <div className='twflex twmax-w-full twmb-3'>
+            <SpotifyPlayer
+              token={token}
+              uris={[currentPlayers[0]?.uri, currentPlayers[1]?.uri]}
+              initialVolume={0.40}
+              hideAttribution={true}
+              // autoPlay={true}
+              showSaveIcon={true}
+              styles={{}}
+            />
+          </div>
         }
+        <h2 className="twitalic twmb-2 twtext-2xl">CONTESTANTS</h2>
+        <TrackList tracks={contestants} />
+        {/* <div onClick={() => fetchPlaylists()}>GET PLAYLISTS</div> */}
     </div>
   );
 }

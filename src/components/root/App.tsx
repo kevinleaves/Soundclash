@@ -2,11 +2,11 @@ import { React, useState, useEffect } from 'react';
 import axios from 'axios';
 import { SpotifyApiContext, Playlist, User } from 'react-spotify-api';
 import '../../styles/App.css';
-import { accessToken, userProfile, getUsersTopItems } from '../../utils/spotifyHelpers.js';
-import Main from '../Main'
+import { accessToken, userProfile, getUsersTopItems, getPlaylists } from '../../utils/spotifyHelpers.js';
+import Main from '../Main';
 import Track from '../interfaces'
-import Header from '../Header'
-import TrackList from '../TrackList';;
+import Header from '../Header';
+import TrackList from '../TrackList';
 import { ThemeProvider } from '../../context/ThemeContext'
 
 function App(): JSX.Element {
@@ -14,6 +14,7 @@ function App(): JSX.Element {
   const [currentUserProfile, setCurrentUserProfile] = useState<object>({});
   const [topItems, setTopItems] = useState<Array<Track>>([])
   const [shuffledSongs, setShuffledSongs] = useState([])
+  const [playlists, setPlaylists] = useState([]);
 
   useEffect(() => {
     const fetchUserProfile = async (): Promise<void> => {
@@ -33,9 +34,18 @@ function App(): JSX.Element {
         console.log(err.message)
       }
     }
+    const fetchPlaylists = async () => {
+      try {
+        const playlists = await getPlaylists(15, token)
+        setPlaylists(playlists.items)
+      } catch(err) {
+        console.log(err.message)
+      }
+    }
 
     fetchUserProfile();
     fetchTopItems()
+    fetchPlaylists();
   }, []);
 
   useEffect(() => {
@@ -65,12 +75,17 @@ function App(): JSX.Element {
                 />
               : null
             }
-            <div>
+            {/* <div>
               {topItems?.length > 0
-                ? <TrackList tracks={topItems}/>
+                ? (
+                  <>
+                    <h1>TRACKLIST</h1>
+                    <TrackList tracks={topItems}/>
+                  </>
+                )
                 : null
               }
-            </div>
+            </div> */}
           </div>
       ) : (
         <div className="twcontainer">

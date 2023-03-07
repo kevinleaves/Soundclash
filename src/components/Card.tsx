@@ -23,7 +23,7 @@ export default function Card ({ track, handleClick }) {
   }
 
   return (
-    <div className='twflex twflex-col twmb-10 twshadow-2xl twtext-white twdark:text-white'>
+    <div className='twflex twflex-col twmb-7 twshadow-2xl twtext-white twdark:text-white'>
       <img
         className='twrounded-3xl'
         src={condensedTrack.art}
