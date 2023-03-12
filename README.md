@@ -10,6 +10,8 @@
     <br>
 </h1>
 
+![image](https://user-images.githubusercontent.com/60834712/224577786-ca7d334a-84ca-4cab-ae82-0513e9022070.png)
+
 ## Technologies Used
 
 ### APIs used
@@ -29,6 +31,8 @@
 ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 ![Yarn](https://img.shields.io/badge/yarn-%232C8EBB.svg?style=for-the-badge&logo=yarn&logoColor=white)
 
+### see the app in action
+![Screen_Recording_2023-03-12_at_3_33_03_PM_AdobeExpress](https://user-images.githubusercontent.com/60834712/224578188-9ae62760-c1b9-4076-a189-5a86a48a05d1.gif)
 
 ## 🚀 Getting Started
 ## Prerequisites
