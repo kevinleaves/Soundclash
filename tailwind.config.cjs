@@ -2,13 +2,13 @@
 module.exports = {
   prefix: 'tw',
   content: [
-    "./index.html",
-    "./src/components/**/*.{js,ts,jsx,tsx}",
-    "./src/**/*"
+    './index.html',
+    './src/components/**/*.{js,ts,jsx,tsx}',
+    './src/**/*',
   ],
   theme: {
     extend: {},
   },
   plugins: [],
-  darkMode: 'class'
-}
+  darkMode: 'class',
+};

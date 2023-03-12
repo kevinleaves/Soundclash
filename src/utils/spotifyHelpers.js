@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 /**
-   * pull access token from url query params
-   */
+ * pull access token from url query params
+ */
 const getAccessToken = () => {
-  const queryString = window.location.search
+  const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const accessToken = urlParams.get('accessToken');
   return accessToken;
@@ -37,14 +37,14 @@ export const userProfile = getUserProfile;
  * @param {*} token string
  */
 
-export async function getUsersTopItems (type, timeRange, limit, token) {
+export async function getUsersTopItems(type, timeRange, limit, token) {
   try {
     const searchParams = new URLSearchParams({
       time_range: timeRange,
       limit,
       offset: 0,
     }).toString();
-    const endpoint = `https://api.spotify.com/v1/me/top/${type}?${searchParams}`
+    const endpoint = `https://api.spotify.com/v1/me/top/${type}?${searchParams}`;
     const headers = {
       Authorization: `Bearer ${token}`,
     };
@@ -57,7 +57,7 @@ export async function getUsersTopItems (type, timeRange, limit, token) {
   }
 }
 
-export async function getUserPlaylists (limit, token) {
+export async function getUserPlaylists(limit, token) {
   try {
     const searchParams = new URLSearchParams({
       limit,
