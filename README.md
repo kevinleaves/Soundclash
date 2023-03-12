@@ -1,7 +1,7 @@
 
 <h1 align="center">
   <br>
-    # spotify-survival-tournament
+    spotify-survival-tournament
     <h3 align="left">
         <i>An application designed to help you find your favorite song. 
         Pit your top songs against each other in an elimination style tournament where you determine the winner.</i>
