@@ -1,16 +1,34 @@
 import axios from 'axios';
 
 /**
- * pull access token from url query params
+ * pull access token from client-side cookies.
  */
+
 const getAccessToken = () => {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const accessToken = urlParams.get('accessToken');
+  const cookies = document.cookie;
+  const accessToken = cookies
+    .split('; ')
+    .find((row) => row.startsWith('accessToken='))
+    ?.split('=')[1];
   return accessToken;
 };
 
 export const accessToken = getAccessToken;
+
+/**
+ * pull refresh token from client-side cookies.
+ */
+
+const getRefreshToken = () => {
+  const cookies = document.cookie;
+  const refreshToken = cookies
+    .split('; ')
+    .find((row) => row.startsWith('refreshToken='))
+    ?.split('=')[1];
+  return refreshToken;
+};
+
+export const refreshToken = getRefreshToken;
 
 const getUserProfile = async (token) => {
   try {
