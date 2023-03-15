@@ -1,5 +1,5 @@
 import React from 'react';
-import Track from './interfaces';
+import Track from '../interfaces/Track';
 
 type TrackListProps = {
   tracks: Track[];

@@ -6,8 +6,9 @@ import {
   getUsersTopItems,
   getPlaylists,
 } from '../../utils/spotifyHelpers.js';
+import { shuffle } from '../../utils/shuffle.js';
 import Main from '../Main';
-import Track from '../interfaces';
+import Track from '../../interfaces/Track';
 import Header from '../Header';
 import TrackList from '../TrackList';
 
@@ -56,13 +57,6 @@ function App(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    const shuffle = (array) => {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
-    };
     setShuffledSongs(shuffle(topItems.slice()));
   }, [topItems]);
 

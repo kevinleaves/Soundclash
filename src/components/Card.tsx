@@ -1,11 +1,20 @@
-export default function Card({ track, handleClick }) {
-  const generateArtistString = (track) => {
-    const artist = track.artists.reduce((acc, artist, index) => {
-      return acc + (index === 0 ? '' : ', ') + artist.name;
-    }, '');
+import Track from '../interfaces/Track.js';
+import Artist from '../interfaces/Artist.js';
+interface CardProps {
+  track: Track;
+  handleClick: (songID: string) => void;
+}
+
+export default function Card({ track, handleClick }: CardProps) {
+  const generateArtistString = (track: Track) => {
+    const artist = track?.artists.reduce(
+      (acc: string, artist: Artist, index: number) => {
+        return acc + (index === 0 ? '' : ', ') + artist.name;
+      },
+      ''
+    );
     return artist;
   };
-  console.log(track);
   const condensedTrack = {
     id: track.id,
     name: track.name,
@@ -24,7 +33,7 @@ export default function Card({ track, handleClick }) {
       <p className='twtext-xl twfont-extralight'>{condensedTrack.albumName}</p>
       <a href={condensedTrack.previewURL}>SNIPPET</a>
       <button
-        onClick={() => handleClick(event, condensedTrack.id)}
+        onClick={() => handleClick(condensedTrack.id)}
         className='twborder-4'
       >
         CHOOSE

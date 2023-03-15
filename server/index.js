@@ -1,12 +1,13 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const controller = require('./controllers/controller.js');
+
 const app = express();
 const morgan = require('morgan');
 const querystring = require('querystring');
 const axios = require('axios');
 const cookieParser = require('cookie-parser');
+const controller = require('./controllers/controller');
 
 const { PORT } = process.env;
 
@@ -28,7 +29,7 @@ const generateRandomString = (length) => {
   const possible =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-  for (let i = 0; i < length; i++) {
+  for (let i = 0; i < length; i += 1) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
   return text;

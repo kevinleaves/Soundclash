@@ -75,7 +75,7 @@ export default function Main({ tracks, token }) {
     }
   };
 
-  const handleSongClick = (event, songID) => {
+  const handleSongClick = (songID: string) => {
     toggleWon(songID);
   };
 
