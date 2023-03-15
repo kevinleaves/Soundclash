@@ -8,7 +8,7 @@ import TrackList from './TrackList';
 
 function Tournament({ currentPlayers, handleSongClick }) {
   return (
-    <div className='twflex twgap-8'>
+    <div className='flex gap-8'>
       <>
         <Card track={currentPlayers[0]} handleClick={handleSongClick} />
         <Card track={currentPlayers[1]} handleClick={handleSongClick} />
@@ -19,9 +19,9 @@ function Tournament({ currentPlayers, handleSongClick }) {
 
 function Winner({ winner }) {
   return (
-    <div className='twflex twflex-col twitems-center twjustify-center'>
-      <p className='twmb-4 twtext-6xl twfont-bold'>WINNER! 🎉</p>
-      <div className='twmax-w-lg'>
+    <div className='flex flex-col items-center justify-center'>
+      <p className='mb-4 text-6xl font-bold'>WINNER! 🎉</p>
+      <div className='max-w-lg'>
         <Card track={winner} />
       </div>
     </div>
@@ -98,7 +98,7 @@ export default function Main({ tracks, token }) {
         />
       )}
       {currentPlayers?.length > 0 && (
-        <div className='twmb-3 twflex twmax-w-full'>
+        <div className='mb-3 flex max-w-full'>
           <SpotifyPlayer
             token={token}
             uris={[currentPlayers[0]?.uri, currentPlayers[1]?.uri]}
@@ -110,7 +110,7 @@ export default function Main({ tracks, token }) {
           />
         </div>
       )}
-      <h2 className='twmb-2 twtext-2xl twitalic'>CONTESTANTS</h2>
+      <h2 className='mb-2 text-2xl italic'>CONTESTANTS</h2>
       <TrackList tracks={contestants} />
       {/* <div onClick={() => fetchPlaylists()}>GET PLAYLISTS</div> */}
     </div>

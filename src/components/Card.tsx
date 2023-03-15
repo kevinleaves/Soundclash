@@ -26,15 +26,15 @@ export default function Card({ track, handleClick }: CardProps) {
   };
 
   return (
-    <div className='twdark:text-white twmb-7 twflex twflex-col twtext-white twshadow-2xl'>
-      <img className='twrounded-3xl' src={condensedTrack.art} />
-      <p className='twtext-xl twfont-semibold'>{condensedTrack.name}</p>
-      <p className='twtext-xl twfont-extralight'>{condensedTrack.artist}</p>
-      <p className='twtext-xl twfont-extralight'>{condensedTrack.albumName}</p>
+    <div className='mb-7 flex flex-col text-white shadow-2xl dark:text-white'>
+      <img className='rounded-3xl' src={condensedTrack.art} />
+      <p className='text-xl font-semibold'>{condensedTrack.name}</p>
+      <p className='text-xl font-extralight'>{condensedTrack.artist}</p>
+      <p className='text-xl font-extralight'>{condensedTrack.albumName}</p>
       <a href={condensedTrack.previewURL}>SNIPPET</a>
       <button
         onClick={() => handleClick(condensedTrack.id)}
-        className='twborder-4'
+        className='border-4'
       >
         CHOOSE
       </button>

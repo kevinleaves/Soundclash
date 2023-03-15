@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import '../../styles/App.css';
 import {
   accessToken,
@@ -63,15 +64,18 @@ function App(): JSX.Element {
   return (
     <div className='App'>
       <Header />
-      <div className='main '>
+      <Routes>
+        <Route path='/' element={<h1>HOMEEEE PAGEEEE</h1>} />
+      </Routes>
+      <div className='main'>
         {token ? (
-          <div className='app-container twflex twflex-col twgap-36'>
+          <div className='app-container flex flex-col gap-36'>
             {shuffledSongs?.length > 0 ? (
               <Main tracks={shuffledSongs} token={token} />
             ) : null}
           </div>
         ) : (
-          <div className='twcontainer'>
+          <div className='container'>
             <div id='login'>
               <a href='/api/login' className='btn btn-primary'>
                 Log in with Spotify
