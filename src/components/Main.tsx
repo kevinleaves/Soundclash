@@ -3,21 +3,27 @@ import Card from './Card';
 import SpotifyPlayer from 'react-spotify-web-playback';
 import axios from 'axios';
 import TrackList from './TrackList';
+import Track from '../interfaces/Track';
 // import { db } from '../../server/db/firestore.js';
 // import { doc, setDoc } from 'firebase/firestore';
 
-function Tournament({ currentPlayers, handleSongClick }) {
+interface TournamentProps {
+  children: React.ReactNode;
+}
+
+function Tournament({ children }: TournamentProps): JSX.Element {
   return (
     <div className='flex gap-8'>
-      <>
-        <Card track={currentPlayers[0]} handleClick={handleSongClick} />
-        <Card track={currentPlayers[1]} handleClick={handleSongClick} />
-      </>
+      <>{children}</>
     </div>
   );
 }
 
-function Winner({ winner }) {
+interface WinnerProps {
+  winner: Track;
+}
+
+function Winner({ winner }: WinnerProps): JSX.Element {
   return (
     <div className='flex flex-col items-center justify-center'>
       <p className='mb-4 text-6xl font-bold'>WINNER! 🎉</p>
@@ -28,15 +34,20 @@ function Winner({ winner }) {
   );
 }
 
-export default function Main({ tracks, token }) {
+interface MainProps {
+  tracks: Array<Track>;
+  token: string;
+}
+
+export default function Main({ tracks, token }: MainProps): JSX.Element {
   // FUTURE TODO: generate x RANDOM contestants
 
-  const [contestants, setContestants] = useState([]);
-  const [winner, setWinner] = useState({});
-  const [currentPlayers, setCurrentPlayers] = useState([]);
+  const [contestants, setContestants] = useState<Array<Track>>([]);
+  const [winner, setWinner] = useState<Track>();
+  const [currentPlayers, setCurrentPlayers] = useState<Array<Track>>([]);
   const [status, setStatus] = useState(false);
 
-  const toggleWon = (id) => {
+  const toggleWon = (id: string) => {
     const loser = currentPlayers.find((player) => player.id !== id);
     const loserID = currentPlayers.find((player) => player.id !== id).id;
     eliminatePlayer(loserID);
@@ -46,7 +57,7 @@ export default function Main({ tracks, token }) {
   //   await setDoc(doc(db, 'winners', id));
   // }
 
-  const eliminatePlayer = (id) => {
+  const eliminatePlayer = (id: string) => {
     // remove the player from contestants
     const remainingPlayers = contestants.filter((player) => player?.id !== id);
     setContestants(remainingPlayers);
@@ -89,13 +100,13 @@ export default function Main({ tracks, token }) {
   }, []);
 
   return (
-    <div className='main-container'>
+    <div className=''>
       {status && <Winner winner={winner} />}
       {currentPlayers?.length > 0 && status === false && (
-        <Tournament
-          currentPlayers={currentPlayers}
-          handleSongClick={handleSongClick}
-        />
+        <Tournament>
+          <Card track={currentPlayers[0]} handleClick={handleSongClick} />
+          <Card track={currentPlayers[1]} handleClick={handleSongClick} />
+        </Tournament>
       )}
       {currentPlayers?.length > 0 && (
         <div className='mb-3 flex max-w-full'>

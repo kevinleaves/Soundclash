@@ -12,12 +12,16 @@ import Main from '../Main';
 import Track from '../../interfaces/Track';
 import Header from '../Header';
 import TrackList from '../TrackList';
+import Navbar from '../Navbar';
+import Home from '../Home';
+import Login from '../Login';
+import SelectPlaylist from '../SelectPlaylist';
 
 function App(): JSX.Element {
   const [token, setToken] = useState<string>(accessToken());
   const [currentUserProfile, setCurrentUserProfile] = useState<object>({});
   const [topItems, setTopItems] = useState<Array<Track>>([]);
-  const [shuffledSongs, setShuffledSongs] = useState([]);
+  const [shuffledSongs, setShuffledSongs] = useState<Array<Track>>([]);
   const [playlists, setPlaylists] = useState([]);
 
   useEffect(() => {
@@ -64,30 +68,28 @@ function App(): JSX.Element {
   return (
     <div className='App'>
       <Header />
+      <Navbar />
       <Routes>
-        <Route path='/' element={<h1>HOMEEEE PAGEEEE</h1>} />
-      </Routes>
-      <div className='main'>
-        {token ? (
-          <div className='app-container flex flex-col gap-36'>
-            {shuffledSongs?.length > 0 ? (
+        <Route path='/' element={<Home />} />
+        <Route
+          path='/play'
+          // element={<Main tracks={shuffledSongs} token={token} />}
+          element={
+            <SelectPlaylist>
               <Main tracks={shuffledSongs} token={token} />
-            ) : null}
-          </div>
+            </SelectPlaylist>
+          }
+        />
+        <Route path='/notes' element={<h1>NOTES MUAHAHAHHA</h1>} />
+      </Routes>
+      {/* <div className='main'>
+        {token && shuffledSongs?.length > 0 ? (
+          <Main tracks={shuffledSongs} token={token} />
         ) : (
-          <div className='container'>
-            <div id='login'>
-              <a href='/api/login' className='btn btn-primary'>
-                Log in with Spotify
-              </a>
-            </div>
-            <div id='loggedin'>
-              <div id='user-profile' />
-              <div id='oauth' />
-            </div>
-          </div>
+          <Login />
         )}
-      </div>
+      </div> */}
+      {!token && <Login />}
     </div>
   );
 }

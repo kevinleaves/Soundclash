@@ -11,7 +11,7 @@ export default function TrackList({ tracks }: TrackListProps) {
       <ul className='grid grid-cols-8 justify-around'>
         {tracks.map((track) => {
           return (
-            <li className='flex items-center justify-center'>
+            <li className='flex items-center justify-center' key={track.id}>
               <div className='flex flex-col items-center'>
                 <img className='pr-2' src={track.album.images[2].url} />
                 <div className='font-medium'>{track.name}</div>
